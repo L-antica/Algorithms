@@ -4,11 +4,11 @@ using namespace std;
 //单链表
 class NodeList
 {
-
-public:
+private:
     int value;
     NodeList *next;
 
+public:
     NodeList() : value(0), next(nullptr) {}
     NodeList(int value) : value(value), next(nullptr) {}
     virtual ~NodeList() {}
@@ -166,7 +166,7 @@ public:
         {
             head->next = ReverseHelper(head->next);
         }
-        
+
         return head;
     }
     static NodeList *ReverseHelper(NodeList *head)
@@ -198,10 +198,65 @@ void NodeListTest()
     //NodeList::Remove(head, 3);
     head->Print();
 }
+//p104 1.3.32 Steque
+class Steque
+{
+private:
+    int value;
+    Steque *head;
+    Steque *last;
+    Steque *next;
 
+public:
+    Steque() : head(nullptr), last(nullptr), next(nullptr), value(0)
+    {
+    }
+    Steque(int val) : head(nullptr), last(nullptr), next(nullptr), value(val)
+    {
+    }
+    //建立Steque 输入长度。返回Steque指针
+    void Enqueue(int val)
+    {
+        if (last == nullptr)
+        {
+            last = new Steque(val);
+            head = last;
+            last->head = head;
+            last->last = last;
+        }
+        else
+        {
+            last->next = new Steque(val);
+            last->next->head = head;
+            last->last = last->next;
+            last = last->next;
+        }
+    }
+
+    void Print()
+    {
+        Steque *flag = head;
+        while (flag)
+        {
+            cout << flag->value;
+            flag = flag->next;
+        }
+        cout << endl;
+    }
+};
+
+void StequeTest()
+{
+    Steque *ste = new Steque();
+    ste->Enqueue(1);
+    ste->Print();
+    ste->Enqueue(2);
+    ste->Print();
+}
 
 int main()
 {
+    StequeTest();
     //NodeListTest();
     system("pause");
     return 0;
