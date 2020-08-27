@@ -214,7 +214,8 @@ public:
     Steque(int val) : head(nullptr), last(nullptr), next(nullptr), value(val)
     {
     }
-    //建立Steque 输入长度。返回Steque指针
+
+    //在Steque末尾插入
     void Enqueue(int val)
     {
         if (last == nullptr)
@@ -227,9 +228,39 @@ public:
         else
         {
             last->next = new Steque(val);
-            last->next->head = head;
-            last->last = last->next;
             last = last->next;
+        }
+    }
+
+    //在Steque头部插入
+    void Push(int val)
+    {
+        if (head == nullptr)
+        {
+            head = new Steque(val);
+            last = head;
+            last->head = head;
+            last->last = last;
+        }
+        else
+        {
+            Steque *p = new Steque(val);
+            p->next = head;
+            head = p;
+        }
+    }
+    //弹出Steque头部
+    int Pop()
+    {
+        if (head == nullptr)
+        {
+            return 0;
+        }
+        else
+        {
+            int num = head->value;
+            head = head->next;
+            return num;
         }
     }
 
@@ -251,6 +282,17 @@ void StequeTest()
     ste->Enqueue(1);
     ste->Print();
     ste->Enqueue(2);
+    ste->Print();
+
+    ste->Enqueue(2);
+    ste->Print();
+    cout << ste->Pop() << endl;
+    ste->Print();
+    ste->Push(3);
+    ste->Print();
+    ste->Push(5);
+    ste->Print();
+    cout << ste->Pop() << endl;
     ste->Print();
 }
 
