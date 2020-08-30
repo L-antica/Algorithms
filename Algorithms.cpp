@@ -1,16 +1,17 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+template <typename Item>
 //单链表
 class NodeList
 {
 private:
-    int value;
-    NodeList *next;
+    Item value;
 
 public:
+    NodeList *next;
     NodeList() : value(0), next(nullptr) {}
-    NodeList(int value) : value(value), next(nullptr) {}
+    NodeList(Item value) : value(value), next(nullptr) {}
     virtual ~NodeList() {}
     void Create(int len)
     {
@@ -67,7 +68,7 @@ public:
     }
 
     //p103 1.3.21 查找
-    static bool find(int key, NodeList *head)
+    static bool find(Item key, NodeList *head)
     {
         head = head->next;
         while (head)
@@ -106,7 +107,7 @@ public:
     }
 
     //p103 1.3.26 删除链表中所有value的key的节点
-    static void Remove(NodeList *head, int key)
+    static void Remove(NodeList *head, Item key)
     {
         while (head->next)
         {
@@ -126,7 +127,7 @@ public:
     //p103 1.3.27 返回最大值，非递归
     static int Max(NodeList *head)
     {
-        int max = 0;
+        Item max = 0;
         while (head)
         {
             max = head->value > max ? head->value : max;
@@ -140,7 +141,7 @@ public:
     {
         if (head == nullptr)
             return 0;
-        int max = MaxRecursion(head->next);
+        Item max = MaxRecursion(head->next);
         return max > head->value ? max : head->value;
     }
 
@@ -185,24 +186,28 @@ public:
         return cur;
     }
 };
-//单链表测试
+//单链表的测试函数
 void NodeListTest()
 {
-    NodeList *head = new NodeList();
+    NodeList<char> *head = new NodeList<char>();
     head->Create(5);
     head->Print();
-    //head->Delete(4);
-    //cout << NodeList::find(0, head);
-    //NodeList::RemoveAfter(head);
-    //NodeList::InsertAfter(head, new NodeList(9));
-    //NodeList::Remove(head, 3);
+    // head->Delete(4);
+    // head->Print();
+    // cout << NodeList<char>::find(0, head);
+    // NodeList<char>::RemoveAfter(head);
     head->Print();
+    NodeList<char>::InsertAfter(head->next->next, new NodeList<char>('4'));
+    head->Print();
+    // NodeList<char>::Remove(head, 3);
+    // head->Print();
 }
 //p104 1.3.32 Steque
+template <typename Item>
 class Steque
 {
 private:
-    int value;
+    Item value;
     Steque *head;
     Steque *last;
     Steque *next;
@@ -211,12 +216,12 @@ public:
     Steque() : head(nullptr), last(nullptr), next(nullptr), value(0)
     {
     }
-    Steque(int val) : head(nullptr), last(nullptr), next(nullptr), value(val)
+    Steque(Item val) : head(nullptr), last(nullptr), next(nullptr), value(val)
     {
     }
 
     //在Steque末尾插入
-    void Enqueue(int val)
+    void Enqueue(Item val)
     {
         if (last == nullptr)
         {
@@ -233,7 +238,7 @@ public:
     }
 
     //在Steque头部插入
-    void Push(int val)
+    void Push(Item val)
     {
         if (head == nullptr)
         {
@@ -258,7 +263,7 @@ public:
         }
         else
         {
-            int num = head->value;
+            Item num = head->value;
             head = head->next;
             return num;
         }
@@ -269,28 +274,28 @@ public:
         Steque *flag = head;
         while (flag)
         {
-            cout << flag->value;
+            cout << flag->value << " ";
             flag = flag->next;
         }
         cout << endl;
     }
 };
-
+//Steque的测试函数
 void StequeTest()
 {
-    Steque *ste = new Steque();
-    ste->Enqueue(1);
+    Steque<double> *ste = new Steque<double>();
+    ste->Enqueue(1.1);
     ste->Print();
-    ste->Enqueue(2);
+    ste->Enqueue(2.2);
     ste->Print();
 
-    ste->Enqueue(2);
+    ste->Enqueue(2.3);
     ste->Print();
     cout << ste->Pop() << endl;
     ste->Print();
-    ste->Push(3);
+    ste->Push(3.4);
     ste->Print();
-    ste->Push(5);
+    ste->Push(5.5);
     ste->Print();
     cout << ste->Pop() << endl;
     ste->Print();
@@ -298,7 +303,7 @@ void StequeTest()
 
 int main()
 {
-    StequeTest();
+    //StequeTest();
     //NodeListTest();
     system("pause");
     return 0;
