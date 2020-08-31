@@ -1,6 +1,6 @@
-#include <iostream>
+#include "Sort.cpp"
 #include <vector>
-using namespace std;
+
 template <typename Item>
 //单链表
 class NodeList
@@ -301,10 +301,16 @@ void StequeTest()
     ste->Print();
 }
 
+
+
 int main()
 {
     //StequeTest();
     //NodeListTest();
+
+    int a[8] = {3, 4, 1, 2, 5, 8, 6, 3};
+    Selection(a);
+    show(a);
     system("pause");
     return 0;
 }
