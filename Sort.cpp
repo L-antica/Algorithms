@@ -1,7 +1,7 @@
 #include "Sort.h"
-void exch(int a[], int i, int j)
+void exch(vector<int>& a, int i, int j)
 {
-    int length = sizeof(a);
+    int length = a.size();
     if (i >= 0 && i < length && j >= 0 && j < length)
     {
         int m = a[i];
@@ -9,9 +9,9 @@ void exch(int a[], int i, int j)
         a[j] = m;
     }
 }
-bool isSorted(int a[])
+bool isSorted(vector<int>& a)
 {
-    int length = sizeof(a);
+    int length =  a.size();
     for (int i = 0; i < length - 1; i++)
     {
         if (a[i] > a[i + 1])
@@ -19,17 +19,17 @@ bool isSorted(int a[])
     }
     return true;
 }
-void show(int a[])
+void show(vector<int>& a)
 {
-    int length = sizeof(a);
+    int length =  a.size();
     for (int i = 0; i < length; i++)
         cout << a[i] << " ";
     cout << endl;
 }
 
-void Selection(int a[])
+void Selection(vector<int>& a)
 {
-    int length = sizeof(a);
+    int length =  a.size();
     for (int i = 0; i < length; i++)
     {
         int min = i;
@@ -44,9 +44,9 @@ void Selection(int a[])
     }
 }
 
-void Insertion(int a[])
+void Insertion(vector<int>& a)
 {
-    int length = sizeof(a);
+    int length =  a.size();
     for (int i = 1; i < length; i++)
     {
         for (int j = i; j > 0; j--)
@@ -56,5 +56,26 @@ void Insertion(int a[])
                 exch(a, j, j - 1);
             }
         }
+    }
+}
+
+void Shell(vector<int>& a)
+{
+    int length =  a.size();
+    int h = 1;
+    while (h < length / 3)
+    {
+        h = 3 * h + 1; //书上给出的递增序列
+    }
+    while (h >= 1)
+    {
+        for (int i = h; i < length; i++)
+        {
+            for (int j = i; j >= h && a[j] < a[j - h]; j -= h)
+            {
+                exch(a, j, j - h);
+            }
+        }
+        h = h/3;
     }
 }

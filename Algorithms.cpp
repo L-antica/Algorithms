@@ -301,15 +301,13 @@ void StequeTest()
     ste->Print();
 }
 
-
-
 int main()
 {
     //StequeTest();
     //NodeListTest();
 
-    int a[8] = {3, 4, 1, 2, 5, 8, 6, 3};
-    Selection(a);
+    vector<int> a = {3, 4, 1, 2, 5, 8, 6, 3, 7, 3, 5, 1, 9};
+    Shell(a);
     show(a);
     system("pause");
     return 0;
