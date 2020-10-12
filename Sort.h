@@ -5,14 +5,15 @@
 using namespace std;
 #endif
 
-
-
-void exch(vector<int>& a, int i, int j);
-bool isSorted(vector<int>& a);
-void show(vector<int>& a);
+void exch(vector<int> &a, int i, int j);
+bool isSorted(vector<int> &a);
+void show(vector<int> &a);
 //选择排序
-void Selection(vector<int>& a);
+void Selection(vector<int> &a);
 //插入排序
-void Insertion(vector<int>& a);
+void Insertion(vector<int> &a);
 //希尔排序
-void Shell(vector<int>& a);
+void Shell(vector<int> &a);
+
+void merge(vector<int> &a, int low, int mid, int high);
+void MergeSort(vector<int> &a, int low, int high);

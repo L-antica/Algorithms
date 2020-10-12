@@ -1,5 +1,5 @@
 #include "Sort.h"
-void exch(vector<int>& a, int i, int j)
+void exch(vector<int> &a, int i, int j)
 {
     int length = a.size();
     if (i >= 0 && i < length && j >= 0 && j < length)
@@ -9,9 +9,9 @@ void exch(vector<int>& a, int i, int j)
         a[j] = m;
     }
 }
-bool isSorted(vector<int>& a)
+bool isSorted(vector<int> &a)
 {
-    int length =  a.size();
+    int length = a.size();
     for (int i = 0; i < length - 1; i++)
     {
         if (a[i] > a[i + 1])
@@ -19,17 +19,17 @@ bool isSorted(vector<int>& a)
     }
     return true;
 }
-void show(vector<int>& a)
+void show(vector<int> &a)
 {
-    int length =  a.size();
+    int length = a.size();
     for (int i = 0; i < length; i++)
         cout << a[i] << " ";
     cout << endl;
 }
 
-void Selection(vector<int>& a)
+void Selection(vector<int> &a)
 {
-    int length =  a.size();
+    int length = a.size();
     for (int i = 0; i < length; i++)
     {
         int min = i;
@@ -44,9 +44,9 @@ void Selection(vector<int>& a)
     }
 }
 
-void Insertion(vector<int>& a)
+void Insertion(vector<int> &a)
 {
-    int length =  a.size();
+    int length = a.size();
     for (int i = 1; i < length; i++)
     {
         for (int j = i; j > 0; j--)
@@ -59,9 +59,9 @@ void Insertion(vector<int>& a)
     }
 }
 
-void Shell(vector<int>& a)
+void Shell(vector<int> &a)
 {
-    int length =  a.size();
+    int length = a.size();
     int h = 1;
     while (h < length / 3)
     {
@@ -76,6 +76,36 @@ void Shell(vector<int>& a)
                 exch(a, j, j - h);
             }
         }
-        h = h/3;
+        h = h / 3;
     }
+}
+//归并
+void merge(vector<int> &a, int low, int mid, int high)
+{
+    vector<int> aux = a;
+    int i = low;
+    int j = mid + 1;
+    for (int k = low; k <= high; k++)
+    {
+        if (i > mid)
+            a[k] = aux[j++];
+        else if (j > high)
+            a[k] = aux[i++];
+        else if (aux[i] < aux[j])
+            a[k] = aux[i++];
+        else if (aux[i] >= aux[j])
+            a[k] = aux[j++];
+    }
+}
+//归并排序
+void MergeSort(vector<int> &a, int low, int high)
+{
+    int mid = (high + low) / 2;
+    if (low >= high)
+    {
+        return;
+    }
+    MergeSort(a, low, mid);
+    MergeSort(a, mid + 1, high);
+    merge(a, low, mid, high);
 }
